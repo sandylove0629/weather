@@ -1,0 +1,61 @@
+* {
+  // border: 1px solid black;
+  box-sizing: border-box;
+}
+$screen-config: (
+  sm: "576px",
+  md: "768px",
+  lg: "992px",
+  xl: "1200px",
+);
+$weather-block-width-config: (
+  "1200px": 20%,
+  "992px": 33.33%,
+  "768px": 50%,
+  "576px": 100%,
+);
+
+image {
+  width: 100%;
+}
+.d-flex {
+  display: flex;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.weather-day {
+  &-block {
+    flex: 0 0 20%;
+    max-width: 0 0 20%;
+    text-align: center;
+  }
+  &-img {
+    width: 100%;
+    max-width: 60px;
+    display: inline-block;
+  }
+  &-humidity,
+  &-temperature {
+    width: 100%;
+  }
+}
+
+@each $name, $value in $weather-block-width-config {
+  @media screen and (max-width: #{$name}) {
+    .weather-day-block {
+      flex: 0 0 #{$value};
+      max-width: #{$value};
+    }
+  }
+}
+
+// @each $name, $value in $screen-config {
+//   @for $i from 1 through 12 {
+//     .col-#{$name}-#{$i} {
+//       flex: 0 0 percentage($i / 12);
+//       max-width: percentage($i / 12);
+//     }
+//   }
+// }
