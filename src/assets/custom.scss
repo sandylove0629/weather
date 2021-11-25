@@ -1,7 +1,3 @@
-* {
-  // border: 1px solid black;
-  box-sizing: border-box;
-}
 $screen-config: (
   sm: "576px",
   md: "768px",
@@ -14,10 +10,60 @@ $weather-block-width-config: (
   "768px": 50%,
   "576px": 100%,
 );
+$flex-position-config: ("start", "end", "center", "between");
 
-image {
+$primary: #555;
+
+* {
+  box-sizing: border-box;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+}
+
+header,
+footer {
+  padding: 1rem;
+  background-color: $primary;
+  color: white;
+}
+
+main {
+  padding: 54px 0 60px 0;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  @extend .justify-content-center;
+}
+
+img {
   width: 100%;
 }
+
+.modal-open {
+  overflow: hidden;
+}
+
 .d-flex {
   display: flex;
 }
@@ -25,20 +71,151 @@ image {
   display: flex;
   flex-wrap: wrap;
 }
+.my-20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  height: 100%;
+}
+.text-center {
+  text-align: center;
+}
+.scroll {
+  overflow: scroll;
+}
+.modal-cross {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: 400;
+}
+@each $name in $flex-position-config {
+  .justify-content-#{$name} {
+    justify-content: #{$name};
+  }
+  .align-items-#{$name} {
+    align-items: #{$name};
+  }
+}
+
+@mixin search-item {
+  font-size: 1rem;
+  line-height: 1.2rem;
+  border-radius: 50px;
+  border: 0;
+  padding: 0.5rem 1rem;
+  margin: 0 0.2rem;
+}
+.search {
+  &-button {
+    background-color: rgb(85, 127, 131);
+    color: #fff;
+    @include search-item;
+    cursor: pointer;
+    &:disabled {
+      opacity: 0.3;
+    }
+  }
+  &-input {
+    @include search-item;
+    width: 100%;
+    max-width: 250px;
+  }
+}
+.pb-2 {
+  padding-bottom: 2rem;
+}
+
+.weather-block {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .weather-day {
   &-block {
     flex: 0 0 20%;
     max-width: 0 0 20%;
     text-align: center;
+    padding: 1rem;
+  }
+  &-cell {
+    padding: 1.2rem;
+    background-color: rgba(#999, 0.1);
+    border-radius: 100px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(#999, 0.2);
+    }
+    h4 {
+      font-size: 14px;
+      margin: 1.2rem 0 0.6rem 0;
+    }
+    p {
+      font-size: 12px;
+    }
   }
   &-img {
     width: 100%;
     max-width: 60px;
     display: inline-block;
   }
+  &-modal-img {
+    width: 100%;
+    max-width: 150px;
+    display: inline-block;
+  }
   &-humidity,
   &-temperature {
     width: 100%;
+    max-width: 300px;
+  }
+  &-modal {
+    position: fixed;
+    background: rgba(#fff, 0.98);
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    @extend .justify-content-center;
+    @extend .align-items-center;
+    overflow: scroll;
+  }
+  &-table {
+    display: inline-block;
+    tr {
+      td {
+        text-align: left;
+        padding: 0.5rem;
+      }
+      td:first-child {
+        text-align: right;
+        font-weight: 400;
+      }
+    }
+    margin: 2rem 0;
+  }
+}
+
+.chart-panel {
+  max-width: 300px;
+}
+
+.today {
+  &-weather-day {
+    &-img {
+      width: 100%;
+      max-width: 200px;
+      display: inline-block;
+    }
   }
 }
 
